@@ -1,25 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Member Management</title>
-    <script type="module" src="./components/member-list.js"></script>
+    <title>Gestión de Socios del Club</title>
+    <!-- Importar componentes de autenticación y dashboard -->
+    <script type="module" src="./components/login-form.js"></script>
+    <script type="module" src="./components/register-form.js"></script>
+    <script type="module" src="./components/dashboard-manager.js"></script>
+    <!-- NOTA: member-list.js se eliminó por ahora ya que la gestión inicial es de autenticación. Se reintroducirá más tarde. -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef1f5;
             color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #eef1f5; /* Mismo color que el body para que parezca una extensión */
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid #0056b3;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .auth-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .auth-toggle button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 0 10px;
+            padding: 8px 15px;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s ease, color 0.3s ease;
+        }
+        .auth-toggle button.active {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            font-weight: bold;
+        }
+        .auth-toggle button:hover:not(.active) {
+            color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Club Member Management!</h1>
-    <p>This is your main application entry point.</p>
+    <header>
+        <h1>Gestión de Socios del Club</h1>
+    </header>
 
-    <member-list></member-list>
+    <main class="container">
+        <div id="authSection">
+            <div class="auth-toggle">
+                <button id="showLogin" class="active">Iniciar Sesión</button>
+                <button id="showRegister">Registrarse</button>
+            </div>
+            <div class="auth-container">
+                <login-form id="loginForm"></login-form>
+                <register-form id="registerForm" style="display: none;"></register-form>
+            </div>
+        </div>
+
+        <div id="dashboardSection" style="display: none;">
+            <dashboard-manager></dashboard-manager>
+        </div>
+    </main>
+
+    <script>
+        const authSection = document.getElementById('authSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const showLoginButton = document.getElementById('showLogin');
+        const showRegisterButton = document.getElementById('showRegister');
+
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const role = localStorage.getItem('userRole');
+
+            if (token && role) {
+                authSection.style.display = 'none';
+                dashboardSection.style.display = 'block';
+                // Asegurarse de que el dashboard-manager se recargue con el rol correcto
+                if (dashboardSection.querySelector('dashboard-manager')) {
+                    dashboardSection.querySelector('dashboard-manager').remove();
+                }
+                const dashboardManager = document.createElement('dashboard-manager');
+                dashboardSection.appendChild(dashboardManager);
+            } else {
+                authSection.style.display = 'block';
+                dashboardSection.style.display = 'none';
+            }
+        }
+
+        function showForm(formToShow) {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            showLoginButton.classList.remove('active');
+            showRegisterButton.classList.remove('active');
+
+            if (formToShow === 'login') {
+                loginForm.style.display = 'block';
+                showLoginButton.classList.add('active');
+            } else {
+                registerForm.style.display = 'block';
+                showRegisterButton.classList.add('active');
+            }
+        }
+
+        // Event Listeners para los botones de alternar formulario
+        showLoginButton.addEventListener('click', () => showForm('login'));
+        showRegisterButton.addEventListener('click', () => showForm('register'));
+
+        // Escuchar eventos personalizados de los componentes
+        document.addEventListener('login-success', checkAuth);
+        document.addEventListener('logout-success', checkAuth);
+        document.addEventListener('register-success', () => {
+            showForm('login'); // Después del registro exitoso, mostrar el login
+            alert('¡Registro exitoso! Por favor, inicia sesión.');
+        });
+
+        // Comprobar autenticación al cargar la página
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
 </body>
 </html>
