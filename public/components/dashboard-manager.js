@@ -68,34 +68,35 @@ class DashboardManager extends HTMLElement {
         container.innerHTML = ''; // Limpiar contenido existente
 
         let componentName = '';
-        let componentPath = '';
+        let componentFileName = ''; // Usar un nombre de variable más claro para el nombre del archivo.
 
         switch (this.role) {
             case 'admin':
                 componentName = 'admin-dashboard';
-                componentPath = './components/admin-dashboard.js';
+                componentFileName = 'admin-dashboard.js';
                 break;
             case 'tesorero':
                 componentName = 'treasurer-dashboard';
-                componentPath = './components/treasurer-dashboard.js';
+                componentFileName = 'treasurer-dashboard.js';
                 break;
             case 'socio':
                 componentName = 'member-dashboard';
-                componentPath = './components/member-dashboard.js';
+                componentFileName = 'member-dashboard.js';
                 break;
             default:
                 container.innerHTML = '<p>No se encontró un dashboard para su rol.</p>';
                 return;
         }
 
-        // Importar dinámicamente el componente
-        import(componentPath)
+        // Importar dinámicamente el componente. La ruta es relativa a este módulo (dashboard-manager.js),
+        // que ya se encuentra en el directorio 'public/components'.
+        import(`./${componentFileName}`)
             .then(() => {
                 const dashboardElement = document.createElement(componentName);
                 container.appendChild(dashboardElement);
             })
             .catch(error => {
-                console.error(`Error al cargar el componente ${componentName}:`, error);
+                console.error(`Error al cargar el componente ${componentName} desde ./${componentFileName}:`, error);
                 container.innerHTML = `<p>Error al cargar el dashboard para el rol '${this.role}'.</p>`;
             });
     }
