@@ -7,6 +7,7 @@ const { sequelize } = require('./models'); // Importa la instancia de Sequelize
 
 // Importar rutas
 const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin'); // Importar rutas de admin
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -16,6 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas de autenticación
 app.use('/api/auth', authRoutes);
+// Rutas de administración
+app.use('/api/admin', adminRoutes);
 
 // Basic route for the root
 app.get('/', (req, res) => {

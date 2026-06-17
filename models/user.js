@@ -37,12 +37,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('admin', 'tesorero', 'socio'),
       allowNull: false,
       defaultValue: 'socio'
+    },
+    isApproved: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   }, {
     sequelize,
     modelName: 'User',
     hooks: {
       beforeCreate: async (user) => {
+        // Automatically approve admin and tesorero roles
+        if (user.role === 'admin' || user.role === 'tesorero') {
+          user.isApproved = true;
+        }
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
       },

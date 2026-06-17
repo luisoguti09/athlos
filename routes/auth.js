@@ -39,7 +39,11 @@ router.post('/register', async (req, res) => {
 
   try {
     const user = await User.create({ email, password, role });
-    res.status(201).json({ message: 'Usuario registrado exitosamente.', user: { id: user.id, email: user.email, role: user.role } });
+    let message = 'Usuario registrado exitosamente.';
+    if (user.role === 'socio' && !user.isApproved) {
+        message += ' Su cuenta está pendiente de aprobación por un administrador.';
+    }
+    res.status(201).json({ message, user: { id: user.id, email: user.email, role: user.role, isApproved: user.isApproved } });
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
       return res.status(409).json({ message: 'El email ya está registrado.' });
@@ -61,6 +65,11 @@ router.post('/login', async (req, res) => {
 
     if (!user || !user.isValidPassword(password)) {
       return res.status(401).json({ message: 'Email o contraseña incorrectos.' });
+    }
+
+    // Verificar si el usuario socio está aprobado
+    if (user.role === 'socio' && !user.isApproved) {
+        return res.status(403).json({ message: 'Su cuenta está pendiente de aprobación por un administrador.' });
     }
 
     const token = jwt.sign(

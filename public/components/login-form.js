@@ -131,7 +131,12 @@ class LoginForm extends HTMLElement {
                     detail: { role: data.role }
                 }));
             } else {
-                messageDiv.textContent = data.message || 'Error al iniciar sesión.';
+                // Si el status es 403 (Forbidden), es probable que la cuenta no esté aprobada
+                if (response.status === 403) {
+                    messageDiv.textContent = data.message || 'Su cuenta está pendiente de aprobación.';
+                } else {
+                    messageDiv.textContent = data.message || 'Error al iniciar sesión.';
+                }
             }
         } catch (error) {
             console.error('Error en la solicitud de login:', error);
