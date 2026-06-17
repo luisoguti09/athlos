@@ -4,6 +4,7 @@
     "password": "hdjHNYotXHHqIHqWbEnuPrXUGPquYZUw",
     "database": "railway",
     "host": "thomas.proxy.rlwy.net",
+    "port": 20022,
     "dialect": "mysql"
   },
   "test": {
@@ -11,6 +12,7 @@
     "password": "hdjHNYotXHHqIHqWbEnuPrXUGPquYZUw",
     "database": "railway",
     "host": "thomas.proxy.rlwy.net",
+    "port": 20022,
     "dialect": "mysql"
   },
   "production": {
@@ -18,6 +20,7 @@
     "password": "hdjHNYotXHHqIHqWbEnuPrXUGPquYZUw",
     "database": "railway",
     "host": "thomas.proxy.rlwy.net",
+    "port": 20022,
     "dialect": "mysql"
   }
 }
