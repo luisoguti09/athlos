@@ -39,8 +39,12 @@ class SkillsContextManager:
 
 if __name__ == "__main__":
     manager = SkillsContextManager()
-    manager.add_skill("Python Programming", "Proficiency in Python development.")
-    manager.add_skill("Cloud Computing", "Experience with AWS, Azure, GCP.")
-    manager.update_context("project_name", "AI Assistant")
-    manager.update_context("current_phase", "Development")
+    manager.add_skill("Node.js", "Backend development with Node.js and Express.")
+    manager.add_skill("Sequelize", "ORM for interacting with MySQL database.")
+    manager.add_skill("MySQL", "Relational database management.")
+    manager.add_skill("Web Components", "Frontend development with native browser components.")
+    manager.update_context("project_name", "Club Member Management App")
+    manager.update_context("current_phase", "Initial Structure Setup")
+    manager.update_context("backend_stack", "Node.js, Express, Sequelize, MySQL")
+    manager.update_context("frontend_stack", "Web Components")
     manager.display_all()
