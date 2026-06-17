@@ -1,0 +1,10 @@
+{
+  "appId": "com.clubmembers.app",
+  "appName": "ClubMembersApp",
+  "webDir": "public",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "http://localhost:3000",
+    "cleartext": true
+  }
+}

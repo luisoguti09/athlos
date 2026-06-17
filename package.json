@@ -16,5 +16,17 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.8",
     "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  },
+  "capacitor": {
+    "android": {
+      "rootDir": "android"
+    }
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
   }
 }
