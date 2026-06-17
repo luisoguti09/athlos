@@ -1,23 +1,23 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
-    "database": "club_members_db",
-    "host": "127.0.0.1",
+    "password": "hdjHNYotXHHqIHqWbEnuPrXUGPquYZUw",
+    "database": "railway",
+    "host": "thomas.proxy.rlwy.net",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "password",
-    "database": "club_members_test_db",
-    "host": "127.0.0.1",
+    "password": "hdjHNYotXHHqIHqWbEnuPrXUGPquYZUw",
+    "database": "railway",
+    "host": "thomas.proxy.rlwy.net",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "password",
-    "database": "club_members_prod_db",
-    "host": "127.0.0.1",
+    "password": "hdjHNYotXHHqIHqWbEnuPrXUGPquYZUw",
+    "database": "railway",
+    "host": "thomas.proxy.rlwy.net",
     "dialect": "mysql"
   }
 }
