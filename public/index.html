@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Socios del Club</title>
+
+    <link rel="stylesheet" href="./styles/themes.css">
+
     <!-- Importar componentes de autenticación y dashboard -->
     <script type="module" src="./components/login-form.js"></script>
     <script type="module" src="./components/register-form.js"></script>
@@ -14,63 +18,203 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #eef1f5;
-            color: #333;
+            min-height: 100vh;
+            color: var(--club-texto);
             line-height: 1.6;
+            background:
+                radial-gradient(circle at 15% 12%, rgba(255, 255, 255, 0.35), transparent 24%),
+                radial-gradient(circle at 85% 18%, rgba(0, 174, 239, 0.32), transparent 30%),
+                linear-gradient(135deg, #002f4f 0%, #006fae 42%, #00aeef 100%);
+            position: relative;
+            overflow-x: hidden;
         }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(120deg, transparent 0 18%, rgba(255, 255, 255, 0.13) 18% 24%, transparent 24% 100%),
+                linear-gradient(120deg, transparent 0 54%, rgba(255, 255, 255, 0.10) 54% 58%, transparent 58% 100%),
+                linear-gradient(120deg, transparent 0 72%, rgba(0, 0, 0, 0.10) 72% 76%, transparent 76% 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 520px;
+            height: 520px;
+            right: -180px;
+            bottom: -180px;
+            border: 42px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #eef1f5; /* Mismo color que el body para que parezca una extensión */
-            border-radius: 8px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+            background-color: transparent;
+            border-radius: var(--radius-md);
         }
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 5px solid #0056b3;
-            margin-bottom: 30px;
+
+        .club-hero {
+            position: relative;
+            overflow: hidden;
+            color: var(--club-blanco);
+            padding: 32px 24px 26px;
+            margin-bottom: 0;
+            background: transparent;
         }
-        header h1 {
+
+        .club-hero::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 18px;
+            transform: translateX(-50%);
+            width: min(920px, calc(100% - 48px));
+            height: 140px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 30px;
+            background: rgba(0, 27, 46, 0.22);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.20);
+            pointer-events: none;
+        }
+
+        .club-hero__content {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        .club-hero__brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            min-height: 112px;
+            text-align: left;
+        }
+
+        .club-hero__logo {
+            width: 112px;
+            height: 112px;
+            object-fit: contain;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35));
+        }
+
+        .club-hero__eyebrow {
+            margin: 0 0 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.74rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .club-hero h1 {
             margin: 0;
-            font-size: 2.5em;
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.055em;
+            color: #ffffff;
+            text-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }
+
+        .club-hero__subtitle {
+            margin: 12px 0 0;
+            font-size: 1.03rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        @media (max-width: 640px) {
+            .club-hero {
+                padding: 28px 18px;
+            }
+
+            .club-hero__brand {
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .club-hero__logo {
+                width: 76px;
+                height: 76px;
+                border-radius: 18px;
+            }
+        }
+
         .auth-container {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin-top: 30px;
+            margin-top: 28px;
         }
+
+        @media (max-width: 760px) {
+            .auth-container {
+                display: block;
+            }
+        }
+
         .auth-toggle {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
+
         .auth-toggle button {
-            background: none;
-            border: none;
-            color: #007bff;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            color: var(--club-azul-oscuro);
             cursor: pointer;
-            font-size: 1.1em;
-            margin: 0 10px;
-            padding: 8px 15px;
-            border-bottom: 2px solid transparent;
-            transition: border-bottom 0.3s ease, color 0.3s ease;
+            font-size: 1.05em;
+            font-weight: 800;
+            margin: 0 6px;
+            padding: 11px 20px;
+            border-radius: 999px;
+            box-shadow: 0 12px 28px rgba(0, 25, 45, 0.20);
+            transition: all 0.25s ease;
         }
+
         .auth-toggle button.active {
-            color: #0056b3;
-            border-bottom: 2px solid #0056b3;
-            font-weight: bold;
+            color: var(--club-blanco);
+            background: linear-gradient(135deg, #001f35, #006fae);
+            border-color: rgba(255, 255, 255, 0.25);
         }
+
         .auth-toggle button:hover:not(.active) {
-            color: #0056b3;
+            transform: translateY(-1px);
+            background: #ffffff;
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <h1>Gestión de Socios del Club</h1>
+    <header class="club-hero">
+
+        <div class="club-hero__content">
+            <div class="club-hero__brand">
+                <img src="./assets/branding/logo-argentino.png" alt="Logo Club Argentino" class="club-hero__logo">
+
+                <div>
+                    <p class="club-hero__eyebrow">Plataforma institucional</p>
+                    <h1>Club Atlético Argentino</h1>
+                    <p class="club-hero__subtitle">Gestión de socios, cuotas y eventos</p>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main class="container">
@@ -148,4 +292,5 @@
         document.addEventListener('DOMContentLoaded', checkAuth);
     </script>
 </body>
+
 </html>

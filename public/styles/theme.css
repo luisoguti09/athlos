@@ -1,0 +1,24 @@
+:root {
+    --club-celeste: #00AEEF;
+    --club-celeste-profundo: #0089C9;
+    --club-azul-oscuro: #003B5C;
+    --club-negro: #111111;
+    --club-blanco: #FFFFFF;
+
+    --club-fondo: #EEF8FC;
+    --club-fondo-profundo: #DDF3FB;
+    --club-card: #FFFFFF;
+    --club-texto: #1F2933;
+    --club-texto-suave: #607080;
+
+    --success: #19A974;
+    --warning: #F5B700;
+    --danger: #D7263D;
+    --info: #00AEEF;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+
+    --shadow-card: 0 12px 32px rgba(0, 59, 92, 0.12);
+}
